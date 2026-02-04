@@ -110,7 +110,7 @@
     <!-- Background Animation -->
     <div id="heart-container" class="heart-bg"></div>
 
-    <!-- Hidden Audio Player -->
+    <!-- Audio Player -->
     <audio id="bg-music" loop>
         <source src="http://googleusercontent.com/file_content/1" type="audio/mpeg">
     </audio>
@@ -339,25 +339,32 @@
             }());
         }
 
-        // 6. Audio Logic
+        // 6. Audio Logic (Mute/Unmute & Play/Pause)
         const music = document.getElementById('bg-music');
         const musicBtn = document.getElementById('music-btn');
-        let isPlaying = false;
+        let hasStarted = false;
 
         function toggleMusic() {
-            if (!isPlaying) {
+            if (!hasStarted) {
+                // Initial play triggered by user interaction
                 music.play().then(() => {
-                    musicBtn.innerText = '🎵';
-                    isPlaying = true;
+                    hasStarted = true;
+                    music.muted = false;
+                    musicBtn.innerText = '🔊';
                     musicBtn.classList.add('animate-bounce');
-                }).catch(err => {
-                    console.log("Playback failed:", err);
-                });
+                }).catch(err => console.log("Audio play blocked", err));
             } else {
-                music.pause();
-                musicBtn.innerText = '🔇';
-                isPlaying = false;
-                musicBtn.classList.remove('animate-bounce');
+                // Toggle between muted and unmuted (pausing/playing for clean behavior)
+                if (music.paused || music.muted) {
+                    music.muted = false;
+                    music.play();
+                    musicBtn.innerText = '🔊';
+                    musicBtn.classList.add('animate-bounce');
+                } else {
+                    music.muted = true;
+                    musicBtn.innerText = '🔇';
+                    musicBtn.classList.remove('animate-bounce');
+                }
             }
         }
     </script>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Forever Valentine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff758f;
+            --accent: #fff0f3;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff5f6;
+            color: #4a1c24;
+            overflow-x: hidden;
+        }
+
+        .font-cursive { font-family: 'Dancing+Script', cursive; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+        }
+
+        /* Hero Section Gradient */
+        .hero-bg {
+            background: linear-gradient(135deg, #ff758f 0%, #ff4d6d 100%);
+        }
+
+        /* Animated Card */
+        .envelope-wrapper {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .envelope {
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .envelope.open {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fff0f3; }
+        ::-webkit-scrollbar-thumb { background: #ff758f; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Elements -->
+    <div id="hearts-container"></div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center text-white hero-bg overflow-hidden p-6">
+        <div class="absolute inset-0 opacity-20">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0,100 C30,40 70,40 100,100 Z" fill="white"></path>
+            </svg>
+        </div>
+        
+        <div class="relative z-10 text-center space-y-6">
+            <h2 class="text-2xl md:text-3xl font-light tracking-widest uppercase">Happy Valentine's Day</h2>
+            <h1 class="text-6xl md:text-8xl font-cursive mb-4 drop-shadow-lg">My One & Only</h1>
+            <p class="text-lg md:text-xl font-light max-w-lg mx-auto italic opacity-90">
+                "Every love story is beautiful, but ours is my favorite."
+            </p>
+            <div class="pt-8">
+                <a href="#letter" class="bg-white text-pink-600 px-8 py-3 rounded-full font-semibold shadow-xl hover:bg-pink-50 transition transform hover:scale-105 inline-block">
+                    Open Your Surprise
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why I Love You Section -->
+    <section class="py-24 px-6 max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-serif text-gray-800 mb-4">Why I Love You</h2>
+            <div class="w-24 h-1 bg-pink-400 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass p-8 text-center memory-card shadow-sm">
+                <div class="text-4xl mb-4">✨</div>
+                <h3 class="text-xl font-bold mb-2">Your Smile</h3>
+                <p class="text-gray-600">The way your eyes light up when you're happy makes my entire world brighter.</p>
+            </div>
+            <div class="glass p-8 text-center memory-card shadow-sm">
+                <div class="text-4xl mb-4">❤️</div>
+                <h3 class="text-xl font-bold mb-2">Your Heart</h3>
+                <p class="text-gray-600">Your kindness and the way you care for everyone around you inspires me every day.</p>
+            </div>
+            <div class="glass p-8 text-center memory-card shadow-sm">
+                <div class="text-4xl mb-4">🌟</div>
+                <h3 class="text-xl font-bold mb-2">Our Moments</h3>
+                <p class="text-gray-600">Whether we're out on an adventure or just sitting on the couch, every second with you is a gift.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Letter Section -->
+    <section id="letter" class="py-24 bg-pink-50 px-6">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl font-serif mb-12">A Little Note For You</h2>
+            
+            <div class="envelope-wrapper" onclick="toggleEnvelope(this)">
+                <div class="envelope relative w-full h-80 md:h-96">
+                    <!-- Back of Envelope -->
+                    <div class="absolute inset-0 bg-pink-200 rounded-lg shadow-lg flex items-center justify-center">
+                        <div class="text-pink-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <p class="mt-4 font-semibold">Click to Open</p>
+                        </div>
+                    </div>
+                    
+                    <!-- The Letter (Inside) -->
+                    <div class="absolute inset-0 bg-white rounded-lg shadow-2xl p-8 text-left flex flex-col justify-center transform scale-x-[-1]" style="backface-visibility: hidden; transform: rotateY(180deg);">
+                        <h3 class="font-cursive text-3xl text-pink-500 mb-4">Dearest [Her Name],</h3>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Today is just another day that I get to tell you how much you mean to me. I wanted to build this little corner of the internet just for you, to remind you that you are loved, appreciated, and cherished.
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            Thank you for being my partner, my best friend, and my home. I can't wait for all the Valentines we have yet to celebrate together.
+                        </p>
+                        <div class="mt-6 font-cursive text-2xl text-pink-500">
+                            Forever Yours, <br>
+                            [Your Name]
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-8 text-gray-500 text-sm italic">(Tap the envelope to read)</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-white text-center border-t border-pink-100">
+        <div class="flex justify-center space-x-4 mb-4">
+            <span class="text-pink-400">❤️</span>
+            <span class="text-pink-400">🌹</span>
+            <span class="text-pink-400">💍</span>
+        </div>
+        <p class="text-gray-400 text-sm">Made with love for [Her Name] • 2024</p>
+    </footer>
+
+    <script>
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = ['❤️', '💖', '💗', '💓', '🌸'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+            heart.style.opacity = Math.random();
+            document.getElementById('hearts-container').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        setInterval(createHeart, 300);
+
+        // Envelope Animation
+        function toggleEnvelope(wrapper) {
+            const envelope = wrapper.querySelector('.envelope');
+            envelope.classList.toggle('open');
+        }
+
+        // Simple Fade In Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.memory-card').forEach(card => {
+            card.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

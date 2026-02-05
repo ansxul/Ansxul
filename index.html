@@ -110,7 +110,7 @@
     <!-- Background Animation -->
     <div id="heart-container" class="heart-bg"></div>
 
-    <!-- Audio Player -->
+    <!-- Audio Player using uploaded file -->
     <audio id="bg-music" loop>
         <source src="http://googleusercontent.com/file_content/1" type="audio/mpeg">
     </audio>
@@ -134,7 +134,7 @@
         <!-- Header -->
         <header class="text-center mb-24">
             <div class="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-500 text-xs font-bold tracking-widest mb-6 uppercase">Especially For You</div>
-            <h1 class="font-handwriting text-7xl md:text-9xl text-rose-500 mb-6 drop-shadow-md">Hey [Friend's Name]</h1>
+            <h1 class="font-handwriting text-6xl md:text-9xl text-rose-500 mb-6 drop-shadow-md">Hey Bestie</h1>
             <p class="text-xl md:text-2xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
                 I wanted to build something as unique as you are. A little digital keepsake for the person who makes everything better.
             </p>
@@ -281,9 +281,6 @@
         let growthFactor = 1;
 
         function moveButton() {
-            const container = document.getElementById('btn-container');
-            
-            // Randomly move within the viewport
             const padding = 100;
             const newX = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
             const newY = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
@@ -292,11 +289,9 @@
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
             
-            // Growing Yes Button
-            growthFactor += 0.2;
+            growthFactor += 0.3;
             yesBtn.style.transform = `scale(${growthFactor})`;
             
-            // Funnier responses
             const strings = ["No 🙈", "Are you sure? 🥺", "Think again! 🧐", "Really? 💔", "Wrong button! 😂", "Try the other one!", "You're mean! 😭"];
             noBtn.innerText = strings[Math.floor(Math.random() * strings.length)];
         }
@@ -313,7 +308,6 @@
             successMsg.classList.remove('hidden');
             setTimeout(() => successMsg.style.transform = 'scale(1)', 50);
 
-            // Infinite Confetti
             const end = Date.now() + (15 * 1000);
             const colors = ['#f43f5e', '#fb7185', '#ffffff', '#fda4af'];
 
@@ -339,29 +333,27 @@
             }());
         }
 
-        // 6. Audio Logic (Mute/Unmute & Play/Pause)
+        // 6. Audio Logic
         const music = document.getElementById('bg-music');
         const musicBtn = document.getElementById('music-btn');
         let hasStarted = false;
 
         function toggleMusic() {
             if (!hasStarted) {
-                // Initial play triggered by user interaction
                 music.play().then(() => {
                     hasStarted = true;
-                    music.muted = false;
                     musicBtn.innerText = '🔊';
                     musicBtn.classList.add('animate-bounce');
-                }).catch(err => console.log("Audio play blocked", err));
+                }).catch(err => {
+                    console.log("Audio play blocked", err);
+                });
             } else {
-                // Toggle between muted and unmuted (pausing/playing for clean behavior)
-                if (music.paused || music.muted) {
-                    music.muted = false;
+                if (music.paused) {
                     music.play();
                     musicBtn.innerText = '🔊';
                     musicBtn.classList.add('animate-bounce');
                 } else {
-                    music.muted = true;
+                    music.pause();
                     musicBtn.innerText = '🔇';
                     musicBtn.classList.remove('animate-bounce');
                 }
